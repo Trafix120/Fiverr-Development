@@ -2,6 +2,10 @@
 
 # Default location for output (needs to match output_dir's value found in nanoc.yaml)
 output/
+backend/node_modules
+frontend/node_modules
+
+
 
 # Temporary file directory
 tmp/nanoc/
