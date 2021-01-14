@@ -31,7 +31,7 @@ const NewMap = () => {
   }
   const callBluefolderApi = async () => {
     try {
-      let res = await fetch("http://localhost:9000/servicerequests");
+      let res = await fetch("/api/servicerequests");
       let customerData = await res.json();
       showUserMarkers(customerData);
     }
@@ -58,8 +58,9 @@ const NewMap = () => {
         },
         map: googleMap,
         animation: window.google.maps.Animation.DROP,
-        title: "TESTING",
+        title: customerData[i].customerName,
       })
+      
     }
 
   }

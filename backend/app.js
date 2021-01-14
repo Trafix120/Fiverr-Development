@@ -7,7 +7,7 @@ var cors = require('cors');
 
 var testAPIRouter = require("./routes/ping");
 var users = require('./routes/users');
-var serviceRequests = require("./routes/servicerequest");
+var serviceRequests = require("./routes/showService");
 
 var app = express();
 
@@ -28,10 +28,10 @@ var corsOptions = {
   optionsSuccessStatus: 200
 }
 
-app.use("/", testAPIRouter);
-app.use("/users", cors(corsOptions), users);
-app.use("/servicerequests", cors(corsOptions), serviceRequests);
-
+app.use("/api", testAPIRouter);
+app.use("/api/users", cors(corsOptions), users);
+app.use("/api/servicerequests", cors(corsOptions), serviceRequests);
+app.use(express.static("public"));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

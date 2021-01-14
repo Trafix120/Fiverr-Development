@@ -1,6 +1,5 @@
 import React from 'react'
 import './App.css'
-import Map from './Map'
 import NewMap from './NewMap'
 
 function App (){
