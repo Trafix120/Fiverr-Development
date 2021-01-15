@@ -20,7 +20,10 @@ router.get("/", (req, res, next) => {
 
   // Setting up authentication
   xhr.open("POST", url);
-  xhr.setRequestHeader("Authorization", "Basic OWNkMWJjYjEtOTYzZS00MWMzLTg5MTgtYzg3MWYyNDI5OGE3OmFzZGY=");
+  let username = process.env.BLUEFOLDER_API_KEY;
+  let conversion = Buffer.from(`${username}:aa`).toString('base64')
+  console.log(conversion);
+  xhr.setRequestHeader("Authorization", `Basic ${conversion}`);
   xhr.setRequestHeader("Content-Type", "application/xml");
 
   // Data Package
@@ -48,7 +51,6 @@ router.get("/", (req, res, next) => {
       try {
         // Converst xml to js object
         let jsonData = parser.parse(xhr.responseText, {}, true);
-        
 
         // Obtains the list of customers
         let servReqs = jsonData.response.serviceRequestList.serviceRequest;

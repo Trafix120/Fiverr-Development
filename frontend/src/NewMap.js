@@ -31,7 +31,8 @@ const NewMap = () => {
   }
   const callBluefolderApi = async () => {
     try {
-      let url = Boolean(process.env.REACT_APP_DEVELOPER_MODE) ? "http://localhost:9000/api/serviceRequests" : "/api/serviceRequests";
+      let url = process.env.REACT_APP_DEVELOPER_MODE == "true" ? "http://localhost:9000/api/serviceRequests" : "/api/serviceRequests";
+      console.log(`URL: ${url}`);
       let res = await fetch(url);
       let customerData = await res.json();
       showUserMarkers(customerData);
