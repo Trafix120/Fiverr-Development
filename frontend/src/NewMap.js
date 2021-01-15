@@ -21,7 +21,7 @@ const NewMap = () => {
   const createGoogleMap = () => {
     console.log(googleMap);
     googleMap = new window.google.maps.Map(googleMapRef.current, {
-      zoom: 10,
+      zoom: 11,
       center: {
         lat: 29.749907,
         lng: -95.358421,
@@ -31,14 +31,7 @@ const NewMap = () => {
   }
   const callBluefolderApi = async () => {
     try {
-      let url = ""
-      console.log(process.env.REACT_APP_DEVELOPER_MODE);
-      if (process.env.REACT_APP_DEVELOPER_MODE == "true"){
-        url = "http://localhost:9000/api/serviceRequests"
-      }
-      else{
-        url="/api/serviceRequests";
-      }
+      let url = Boolean(process.env.REACT_APP_DEVELOPER_MODE) ? "http://localhost:9000/api/serviceRequests" : "/api/serviceRequests";
       let res = await fetch(url);
       let customerData = await res.json();
       showUserMarkers(customerData);
@@ -54,22 +47,23 @@ const NewMap = () => {
     }
     
     console.log(customerData);
-    for (let i = 0; i < customerData.length; i++) {
-      if (customerData[i].coordinates == null){
-        continue;
+    customerData.forEach((customer) => {
+      const {coordinates, customerName} = customer;
+      if (coordinates == null){
+        return
       }
-      //console.log(customerData[i]);
       var marker = new window.google.maps.Marker({
         position: {
-          lat: customerData[i].coordinates.lat,
-          lng: customerData[i].coordinates.lng,
+          lat: coordinates.lat,
+          lng: coordinates.lng,
         },
         map: googleMap,
         animation: window.google.maps.Animation.DROP,
         label: {
           color: 'black',
           fontWeight: 'bold',
-          text: customerData[i].customerName,
+          fontSize: '13px',
+          text: customerName,
         },
         icon: {
           path: `M13.04,41.77c-0.11-1.29-0.35-3.2-0.99-5.42c-0.91-3.17-4.74-9.54-5.49-10.79c-3.64-6.1-5.46-9.21-5.45-12.07
@@ -84,9 +78,10 @@ const NewMap = () => {
           labelOrigin: new window.google.maps.Point(13.5, 50)
         },
       })
-      console.log(marker.icon);
+    })
       
-    }
+      
+    
 
   }
 

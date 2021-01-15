@@ -3,7 +3,10 @@
 # Default location for output (needs to match output_dir's value found in nanoc.yaml)
 output/
 backend/node_modules
+backend/.env
 frontend/node_modules
+
+frontend/.env
 
 
 

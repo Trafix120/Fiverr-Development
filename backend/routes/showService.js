@@ -48,6 +48,7 @@ router.get("/", (req, res, next) => {
       try {
         // Converst xml to js object
         let jsonData = parser.parse(xhr.responseText, {}, true);
+        
 
         // Obtains the list of customers
         let servReqs = jsonData.response.serviceRequestList.serviceRequest;
@@ -58,7 +59,7 @@ router.get("/", (req, res, next) => {
         var numRequests = Object.keys(servReqs).length
         for (let i = 0; i < numRequests; i++) {
           newServReqs.push({
-            customerName: servReqs[i].customerContactName,
+            customerName: servReqs[i].customerName,
             addressName: servReqs[i].customerLocationStreetAddress,
             _id: servReqs[i].serviceRequestId,
           });
